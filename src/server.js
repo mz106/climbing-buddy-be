@@ -3,15 +3,17 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
+const port = process.env.PORT 
+
 const app = express();
+
+const testRouter = require("./testRoutes/testRoutes");
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.status(200).json({message: "We are good to go!"});
-});
+app.use("/test", testRouter);
 
-app.listen(80, () => {
+app.listen(port, () => {
     console.log("app is listening");
 });
