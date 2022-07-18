@@ -7,11 +7,13 @@ const port = process.env.PORT
 
 const app = express();
 
+const userRouter = require("./user/routes");
 const testRouter = require("./testRoutes/testRoutes");
 
 app.use(cors());
 app.use(express.json());
 
+app.use("/user", userRouter);
 app.use("/test", testRouter);
 
 app.listen(port, () => {
