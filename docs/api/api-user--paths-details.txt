@@ -1,0 +1,45 @@
+:: legend
+- userObj -> a JavaScript object that holds properties matching the column names in the user table, passed in the body
+- token -> a JSON Web Token that is passed to the server in the authorization header and received from the server in the body of the response; this is how the API knows the logged-in user
+
+
+:: Get the logged-in user's information
+:: - takes the authorization token, from which it will extract the userId
+:: - returns an userObj - an object with the user's data, minus the password
+GET /user/self {token} => {userObj} 
+
+:: Login a user by validating its username and password
+:: - body must contain an object with 2 fields {username, password}
+:: - returns an userObj and an authorization token
+POST /user/login {username, password} => {userObj, token}
+
+:: Create a new user in the database
+:: - body must have an object with the user's data (userObj), including the password
+:: - returns an userObj, the document that was saved in the database (minus the password), and an authorization token
+POST /user {userObj} => {userObj, token} // will accept a 
+
+:: Update the details of the logged-in user in the database
+:: - takes an object with the new user data (inncluding new password if provided) and authorization token
+:: - retruns an userObj, the document that was saved to the database (minus the password)
+PATCH /user {userObj, token} => {userObj}
+
+:: Delete the logged-in user in the database
+:: - takes the authorization token
+:: - returns an answer of success/failure
+DELETE /user {token} => {success/failure}
+
+
+:: Get another user's data - maybe a potential buddy or a buddy
+:: - takes nothing in the body
+:: - returns an userObj - an object with the user's data, minus the password
+GET /user/:username => {userObj} 
+
+:: Get list with the user's buddies
+:: - takes the authorization token from witch it will extract the username, userId
+:: - returns an array of userObj where each userObj is one of user's buddies
+GET /user/friends {token} => [{userObj}, ]
+
+:: Link another user to the logged-in user (add him as a friend/buddy)
+:: - takes the authorization token
+:: - returns the buddy's userObj ?! not sure what we need yet, at least we get a success/failure answer
+PUT /user/friend/:username {token} => {userObj}
