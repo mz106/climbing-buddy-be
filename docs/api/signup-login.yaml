@@ -1,0 +1,56 @@
+openapi: 3.0.3
+
+info:
+  title: climbing-buddy-signup-login
+  version: 0.1.0
+  
+servers:
+-  url: http://localhost 
+   description: localhost
+   
+paths:
+  "/user":
+    post:
+      summary: creates and adds user to db
+      responses:
+        "201":
+          description: user has been added
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userRegister"
+  "/user/login":
+    post:
+      summary: allows for user login
+      responses:
+        "200":
+          description: user logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userLogin"
+                
+components:
+  schemas:
+    userRegister:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: user id
+        username:
+          type: string
+          description: users username
+        
+    userLogin:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: user id
+        username:
+          type: string
+          description: users username
+        token:
+          type: string
+          description: a JWT
