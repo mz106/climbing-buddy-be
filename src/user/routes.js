@@ -5,6 +5,7 @@ const config = {session: false};
 
 const router = require("express").Router();
 
+const { register } = require("./helpers");
 
 router.post("/register", passport.authenticate("register", config), register);
 

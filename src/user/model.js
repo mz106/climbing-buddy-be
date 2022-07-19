@@ -24,15 +24,13 @@ const User = connection.define( "User", {
     },
     hasRopes: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
     },
     location: {
         type: DataTypes.STRING,
-        allowNull: false,
     }
   },
   {
-    indexes: [{unique: true, fields: ['email']}]
+    indexes: [{unique: true, fields: ['username']}]
   }
 );
 
