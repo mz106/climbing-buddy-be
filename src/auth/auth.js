@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
 
 const User = require("../user/model");
@@ -7,16 +7,13 @@ const mappings = {usernameField: "username", passwordField: "password"};
 
 const register = async (username, password, done) => {
     
-    const saltRounds = process.env.SALT_ROUNDS;
-    
     try {
-        
-        const salt = await bcrypt.genSalt(parseInt(saltRounds));
-        const hash = await bcrypt.hash(password, salt);
+
+        // password will be hashed on save by a hook in the model
         const user = await User.build(
             {
                 username, 
-                hashedPassword: hash, 
+                password, 
             }
         );
 
@@ -42,7 +39,8 @@ const login = async (username, password, done) => {
             
         }
 
-        const match = await bcrypt.compare(password, user.hashedPassword);
+        // use the function added to the model to validate the password
+        const match = user.validatePassword(password);
         
         if (!match) {
             
