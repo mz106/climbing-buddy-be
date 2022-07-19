@@ -5,9 +5,10 @@ const config = {session: false};
 
 const router = require("express").Router();
 
-const { register } = require("./helpers");
+const { register, login } = require("./helpers");
 
 router.post("/register", passport.authenticate("register", config), register);
+router.post("/login", login);
 
 
 
