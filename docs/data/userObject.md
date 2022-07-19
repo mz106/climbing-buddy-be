@@ -9,11 +9,15 @@ id - integer (auto create by MySql/Postgres), PK
 
 username - String, unique, required
 
-hashedPassword - String, unique, required
+password - String, unique, required // the **hashed** password
 
-hasRopes - Boolean, required
+full_name - String, required // would be nice to display the name in the app, instead of username
 
-location - String, required
+email - String, required, unique 
+
+hasRopes - Boolean, required // what is this for? 
+
+location - String, required // location of the user ? for matching with other close by users maybe ? 
 
 
 
