@@ -15,6 +15,8 @@ fullName - String, required // would be nice to display the name in the app, ins
 
 email - String, required, unique 
 
+bio - Text, // biography, text about himself, so other users would know something about him
+
 hasRopes - Boolean, required // what is this for? 
 
 location - String, required // location of the user ? for matching with other close by users maybe ? 
