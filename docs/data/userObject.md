@@ -11,7 +11,7 @@ username - String, unique, required
 
 password - String, unique, required // the **hashed** password
 
-full_name - String, required // would be nice to display the name in the app, instead of username
+fullName - String, required // would be nice to display the name in the app, instead of username
 
 email - String, required, unique 
 
