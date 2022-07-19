@@ -5,6 +5,8 @@ const cors = require("cors");
 
 const port = process.env.PORT 
 
+const User = require("./user/model");
+
 const app = express();
 
 const userRouter = require("./user/routes");
@@ -16,6 +18,11 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/test", testRouter);
 
-app.listen(port, () => {
-    console.log("app is listening");
+app.listen(port, async (err) => {
+    if(!err) {
+        await User.sync({alter: true});
+        console.log("app is listening");
+    } else {
+        console.log(err);
+    }
 });
