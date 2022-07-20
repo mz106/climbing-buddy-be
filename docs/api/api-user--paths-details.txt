@@ -16,7 +16,7 @@ POST /user/login {username, password} => {userObj, token}
 :: Create a new user in the database
 :: - body must have an object with the user's data (userObj), including the password
 :: - returns an userObj, the document that was saved in the database (minus the password), and an authorization token
-POST /user {userObj} => {userObj, token} // will accept a 
+POST /user {userObj} => {userObj, token} 
 
 :: Update the details of the logged-in user in the database
 :: - takes an object with the new user data (inncluding new password if provided) and authorization token
