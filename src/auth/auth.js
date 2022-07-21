@@ -13,7 +13,7 @@ const register = async (username, password, done) => {
         const user = await User.build(
             {
                 username, 
-                password, 
+                password, // field will be used to generate the hashedPassword and then will get removed 
             }
         );
 
