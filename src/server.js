@@ -1,19 +1,34 @@
 require("dotenv").config();
 
 const express = require("express");
+const passport = require("passport");
 const cors = require("cors");
 
 const port = process.env.PORT 
 
-const app = express();
+const User = require("./user/model");
 
+const { registerStrategy, loginStrategy } = require("./auth/auth");
+
+const userRouter = require("./user/routes");
 const testRouter = require("./testRoutes/testRoutes");
+
+const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+passport.use("register", registerStrategy);
+passport.use("login", loginStrategy);
+
+app.use("/user", userRouter);
 app.use("/test", testRouter);
 
-app.listen(port, () => {
-    console.log("app is listening");
+app.listen(port, async (err) => {
+    if(!err) {
+        await User.sync({alter: true});
+        console.log("app is listening");
+    } else {
+        console.log(err);
+    }
 });

@@ -9,11 +9,11 @@ id - integer (auto create by MySql/Postgres), PK
 
 username - String, unique, required
 
-hashedPassword - String, unique, required
+hashedPassword - String, unique, required 
 
-hasRopes - Boolean, required
+hasRopes - Boolean, required // what is this for? 
 
-location - String, required
+location - String, required // location of the user ? for matching with other close by users maybe ? 
 
 
 
