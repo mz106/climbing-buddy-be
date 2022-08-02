@@ -1,0 +1,15 @@
+:: Just a space to keep some snippets and some random info i found that we might find it usefull
+
+
+- useful if we need to display/retrieve associated models
+
+MyModel.findAll({ raw: true, nest:true })
+
+db.Sensors.findAll(
+    { where: { nodeid: node.nodeid },
+    include : [ { model : someModel } ],
+    raw : true , // <----------- Magic is here
+    nest : true // <----------- Magic is here
+}).success(function (sensors) {
+        console.log(sensors);
+});
