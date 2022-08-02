@@ -1,5 +1,6 @@
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const User = require("./model");
 const config = {session: false};
 
 const register = async (req, res, next) => {
@@ -38,7 +39,18 @@ const login = (req, res, next) => {
     
 };
 
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.findAll();
+        
+        res.status(200);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 module.exports = {
     register,
     login,
+    getAllUsers,
 };
