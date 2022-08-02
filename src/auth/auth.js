@@ -10,15 +10,16 @@ const register = async (username, password, done) => {
     try {
 
         // password will be hashed on save by a hook in the model
-        const user = await User.build(
+        const user = await User.create(
             {
                 username, 
-                password, // field will be used to generate the hashedPassword and then will get removed 
+                // changed from password to hashedPassword issue #24 mz
+                hashedPassword: password, // hashedPassword put through as password which will then be swapped for a hashed version
             }
         );
-
+        console.log("user: ", user)
         try {
-            await user.save();
+            // await user.save();
             return done(null, user);
         } catch (error) {
             console.log(user, error)

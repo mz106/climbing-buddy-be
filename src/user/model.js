@@ -39,20 +39,20 @@ const User = connection.define( "User", {
 
 
 // hash the password for the user provided as parameter
+//edited by MZ issue #24 - changed user.password to user.hashedpassword to allow for no null fields
 const hashPassword = async(user, options) => {
     const saltRounds = process.env.SALT_ROUNDS;
     const salt = await bcrypt.genSalt(parseInt(saltRounds));
-    const hash = await bcrypt.hash(user.password, salt);
-    //console.log('-> User.beforeCreate: user = ', user);
-    delete user.password;       // the unhashed password (that was received from the FE) gets removed
+    const hash = await bcrypt.hash(user.hashedPassword, salt);
+    delete user.hashedPassword;       // the unhashed password (that was received from the FE) gets removed
     user.hashedPassword = hash;
 }
 
 
-// hash the password before saving to database on create, update, save
+// hash the password before on create, update
 User.addHook('beforeCreate', hashPassword);
 User.addHook('beforeUpdate', hashPassword);
-User.addHook('beforeSave', hashPassword);
+
 
 
 // validate that the provided password is correct
