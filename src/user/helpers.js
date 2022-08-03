@@ -2,6 +2,7 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const User = require("./model");
 const config = {session: false};
+const { addUserToDLL } = require("./userLinkedList")
 
 const register = async (req, res, next) => {
     req.user.username
@@ -39,11 +40,19 @@ const login = (req, res, next) => {
     
 };
 
+
+
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.findAll();
+        console.log(users)
+        // const DDL = await addUserToDLL(users);
+        // res.send({DDL})
+        // console.log(DDL.head.val);
+        // console.log("1!!!!!!!!!!!!!!!!!!!!!")
+        // DDL.printList();
+        res.status(200).send(users);
         
-        res.status(200);
     } catch (error) {
         console.log(error);
     }
